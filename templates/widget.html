@@ -1,0 +1,140 @@
+{% import 'macros/flash.html' as flash with context %}
+{% import 'macros/form.html' as f with context %}
+{% import 'billing/macros/billing.html' as billing with context %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Widget Project</title>
+
+    <meta name="description" content="App">
+    <meta name="author" content="pixelcave">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Icons -->
+    <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='schedulr/logos/ico/favicon.ico') }}">
+
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='schedulr/logos/ico/favicon.ico') }}" sizes="16x16">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='schedulr/logos/ico/favicon.ico') }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='schedulr/logos/ico/favicon.ico') }}" sizes="96x96">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='schedulr/logos/ico/favicon.ico') }}" sizes="160x160">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='schedulr/logos/ico/favicon.ico') }}" sizes="192x192">
+    <!-- END Icons -->
+
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhaina+2" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='icons/styles.css') }}">
+
+    <!-- Tailwind CSS -->
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='tailwindcss/tailwind.css') }}">
+
+    <!-- END Stylesheets -->
+</head>
+
+<body class="text-black base-font-size">
+<div class="{#hidden#} sm:block sm:absolute sm:inset-y-0 sm:h-full sm:w-full" style="overflow-x:hidden;">
+    <!-- Header -->
+    {{ flash.render() }}
+    <!-- Main content -->
+    <!-- This example requires Tailwind CSS v2.0+ -->
+    <div class="bg-white overflow-hidden lg:py-8">
+      <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="relative mt-12">
+          <div class="grid grid-flow-row-dense sm:grid-cols-1 sm:gap-12 items-center">
+            <div class="-mx-4 relative mt-0 lg:col-start-1 col-span-1">
+              <div class="max-w-sm md:max-w-6xl lg:max-w-6xl xl:max-w-10xl bg-white rounded-lg border border-gray-200 shadow-xl divide-y divide-gray-200 overflow-x-hidden mx-4 md:mx-auto">
+                <div class="px-4 pt-2">
+                    <div class="divide-y divide-gray-200">
+                        <!-- This example requires Tailwind CSS v2.0+ -->
+                        <div class="px-4 py-5 sm:px-6 w-full">
+                            <div class="md:flex md:items-center md:justify-between md:space-x-4">
+                              <div id="content" class="w-full pb-3 md:pb-0">
+                                <div class="inline-flex items-center pb-3 md:pb-0 w-full">
+                                    <div>
+                                        <h2 class="text-2xl font-bold text-gray-900">Update {{ widget.name }}</h2>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="pl-2 md:pl-4 md:pr-4 pb-20 md:pb-6">
+                            <div id="create-email">
+                                <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5 sm:px-2 md:px-5" style="width:100%;min-width:300px;">
+                                    <div>
+                                        <div class="space-y-6 sm:space-y-5">
+                                            <form action="{{ url_for('page.update', widget_id=widget.id) }}" method="POST">
+                                                <div class="sm:grid sm:grid-cols-4 sm:gap-4 sm:items-start sm:py-8">
+                                                    <label for="id"
+                                                           class="block text-sm font-normal text-gray-700 sm:mt-px sm:pt-2">
+                                                        Widget ID
+                                                    </label>
+                                                    <div class="mt-1 sm:mt-0 sm:col-span-3 inline-flex">
+                                                        <span class="block text-sm font-normal text-gray-700 sm:mt-px sm:pt-2">{{ widget.id }}</span>
+                                                    </div>
+
+                                                    <label for="name"
+                                                           class="block text-sm font-normal text-gray-700 sm:mt-px sm:pt-2">
+                                                        Name
+                                                    </label>
+                                                    <div class="mt-1 sm:mt-0 sm:col-span-3 inline-flex">
+                                                        <input required type="text" name="name" id="name" value="{{ widget.name }}" maxlength="64"
+                                                               class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                                                    </div>
+
+                                                    <label for="name"
+                                                           class="block text-sm font-normal text-gray-700 sm:mt-px sm:pt-2">
+                                                        Number of parts
+                                                    </label>
+                                                    <div class="mt-1 sm:mt-0 sm:col-span-3 inline-flex">
+                                                        <input required type="number" name="number-parts" id="number-parts" value="{{ widget.number_of_parts }}"
+                                                               class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                                                    </div>
+                                                </div>
+                                                <div class="sm:grid sm:grid-cols-4 sm:gap-4 sm:items-end sm:pt-3">
+                                                    <div class="mt-1 sm:mt-0 sm:col-span-1 inline-flex"></div>
+                                                    <div class="flex justify-start">
+                                                        <button type="submit" class="inline-flex justify-center border border-indigo-600 items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50">
+                                                            Save
+                                                        </button>
+                                                    </div>
+                                                    <div class="flex">
+                                                        <a href="{{ url_for('page.home') }}" type="button" class="inline-flex justify-center border border-red-600 items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-red-600 bg-white hover:bg-gray-50">
+                                                            Cancel
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+<!-- jQuery -->
+<script src="{{ url_for('static', filename='oneui/assets/js/core/jquery.min.js') }}"></script>
+<script src="https://apis.google.com/js/api:client.js"></script>
+<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+<!-- JS -->
+</body>
+</html>

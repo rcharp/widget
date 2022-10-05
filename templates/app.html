@@ -1,0 +1,217 @@
+{% import 'macros/flash.html' as flash with context %}
+{% import 'macros/form.html' as f with context %}
+{% import 'billing/macros/billing.html' as billing with context %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Widget Project</title>
+
+    <meta name="description" content="App">
+    <meta name="author" content="pixelcave">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Icons -->
+    <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='schedulr/logos/ico/favicon.ico') }}">
+
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='schedulr/logos/ico/favicon.ico') }}" sizes="16x16">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='schedulr/logos/ico/favicon.ico') }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='schedulr/logos/ico/favicon.ico') }}" sizes="96x96">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='schedulr/logos/ico/favicon.ico') }}" sizes="160x160">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='schedulr/logos/ico/favicon.ico') }}" sizes="192x192">
+    <!-- END Icons -->
+
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhaina+2" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='icons/styles.css') }}">
+
+    <!-- Tailwind CSS -->
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='tailwindcss/tailwind.css') }}">
+
+    <!-- END Stylesheets -->
+</head>
+
+<body class="text-black base-font-size">
+<div class="sm:block sm:absolute sm:inset-y-0 sm:h-full sm:w-full" style="overflow-x:hidden;">
+    <!-- Header -->
+    {{ flash.render() }}
+    <!-- Main content -->
+    <!-- This example requires Tailwind CSS v2.0+ -->
+    <div class="bg-white overflow-hidden lg:py-8">
+      <div class="relative max-w-10xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="relative mt-12">
+          <div class="grid grid-flow-row-dense sm:grid-cols-1 md:grid-cols-3 sm:gap-12 items-center">
+            <div class="-mx-4 relative mt-0 lg:col-start-1 col-span-1">
+              <div class="max-w-sm md:max-w-6xl lg:max-w-6xl xl:max-w-10xl bg-white rounded-lg border border-gray-200 shadow-xl divide-y divide-gray-200 overflow-x-hidden mx-4 md:mx-auto">
+                <div class="px-4 pt-2">
+                    <div class="divide-y divide-gray-200">
+                        <!-- This example requires Tailwind CSS v2.0+ -->
+                        <div class="px-4 py-5 sm:px-6 w-full">
+                            <div class="md:flex md:items-center md:justify-between md:space-x-4">
+                              <div id="content" class="w-full pb-3 md:pb-0">
+                                <div class="inline-flex items-center pb-3 md:pb-0 w-full">
+                                    <div>
+                                        <h2 class="text-2xl font-bold text-gray-900">Create a new widget</h2>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="pl-2 md:pl-4 md:pr-4 pb-20 md:pb-6">
+                            <div id="create-email">
+                                <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5 sm:px-2 md:px-5" style="width:100%;min-width:300px;">
+                                    <div>
+                                        <div class="space-y-6 sm:space-y-5">
+                                            <form action="{{ url_for('page.create') }}" method="POST">
+                                                <div class="sm:grid sm:grid-cols-4 sm:gap-4 sm:items-start sm:py-8">
+                                                    <label for="name"
+                                                           class="block text-sm font-normal text-gray-700 sm:mt-px sm:pt-2">
+                                                        Name
+                                                    </label>
+                                                    <div class="mt-1 sm:mt-0 sm:col-span-3 inline-flex">
+                                                        <input required type="text" name="name" id="name" maxlength="64"
+                                                               class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                                                    </div>
+
+                                                    <label for="name"
+                                                           class="block text-sm font-normal text-gray-700 sm:mt-px sm:pt-2">
+                                                        Number of parts
+                                                    </label>
+                                                    <div class="mt-1 sm:mt-0 sm:col-span-3 inline-flex">
+                                                        <input required type="number" name="number-parts" id="number-parts"
+                                                               class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                                                    </div>
+                                                </div>
+                                                <div class="sm:grid sm:grid-cols-4 sm:gap-4 sm:items-end sm:pt-3">
+                                                    <div class="mt-1 sm:mt-0 sm:col-span-1 inline-flex"></div>
+                                                    <div class="flex justify-start">
+                                                        <button type="submit" class="inline-flex justify-center border border-indigo-600 items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50">
+                                                            Create
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <div class="relative">
+                                              <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                                                <div class="w-full justify-center text-center border-t border-gray-300"></div>
+                                              </div>
+                                              <div class="relative flex justify-center">
+                                                <span class="bg-white px-2 text-sm text-gray-500">Or</span>
+                                              </div>
+                                            </div>
+                                            <form action="{{ url_for('page.create', rand=true) }}" method="POST">
+                                                <div class="sm:items-end sm:pt-6">
+                                                    <div class="text-center items-center justify-center">
+                                                        <button type="submit" class="w-1/2 inline-flex justify-center border border-indigo-600 items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50">
+                                                            Create a random widget
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="list" class="sm:col-span-1 md:col-span-2 min-w-full bg-white rounded-lg border border-gray-200 shadow-xl divide-y divide-gray-200 overflow-x-hidden mx-4 md:mx-auto">
+                <div class="px-8 py-8">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900">Widgets</h2>
+                        {% if widget_length > 0 %}
+                            {% set w = 10 %}
+                            {% if widget_length < 10 %}
+                                {% set w = widget_length %}
+                            {% endif %}
+                            <div class="inline-flex">
+                                <small>Showing {{ w }} of {{ widget_length }} widget{% if widget_length != 1 %}s{% endif %}
+                                    <a href="{{ url_for('page.list_widgets') }}" type="button" class="ml-5 inline-flex justify-center border border-indigo-600 items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50">
+                                        View all
+                                    </a>
+                                </small>
+                            </div>
+                        {% endif %}
+                    </div>
+                        <div class="mt-8 flex flex-col">
+                            <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                              <div class="inline-block w-full max-w-full py-2 align-middle md:px-6 lg:px-8">
+                              {% if widgets %}
+                                <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                                  <table class="w-full max-w-full divide-y divide-gray-300">
+                                    <thead class="bg-gray-50">
+                                      <tr>
+                                        <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Widget ID</th>
+                                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Name</th>
+                                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"># of Parts</th>
+                                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Created</th>
+                                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 inline-flex">Last Updated
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill ml-1 mt-0.5" viewBox="0 0 16 16">
+                                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                            </svg>
+                                        </th>
+                                        <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                                          <span class="sr-only">Edit</span>
+                                        </th>
+                                        <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                                          <span class="sr-only">Delete</span>
+                                        </th>
+                                      </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200 bg-white">
+                                        {% for widget in widgets %}
+                                          <tr>
+                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ widget.id }}</td>
+                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ widget.name }}</td>
+                                            <td class="whitespace-nowrap px-3 py-4 text-center text-sm text-gray-500">{{ widget.number_of_parts }}</td>
+                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ widget.created_on | pretty_date_filter }}</td>
+                                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ widget.updated_on | pretty_date_filter }}</td>
+                                            <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                              <a href="{{ url_for('page.read', widget_id=widget.id) }}" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only"></span></a>
+                                            </td>
+                                            <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                              <a href="{{ url_for('page.delete', widget_id=widget.id) }}" class="text-indigo-600 hover:text-indigo-900">Delete<span class="sr-only"></span></a>
+                                            </td>
+                                          </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                  </table>
+                                </div>
+                            {% else %}
+                              <div class="text-center p-12">
+                                  <p class="text-xl font-normal text-gray-900">There are no widgets to display.</p>
+                              </div>
+                            {% endif %}
+                          </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+<!-- jQuery -->
+<script src="{{ url_for('static', filename='oneui/assets/js/core/jquery.min.js') }}"></script>
+<script src="https://apis.google.com/js/api:client.js"></script>
+<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+</body>
+
+</html>
